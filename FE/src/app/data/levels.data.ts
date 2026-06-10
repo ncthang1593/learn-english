@@ -4,10 +4,10 @@ export const LEVELS_DATA: Level[] = [
   {
     id: 'basic-1',
     order: 1,
-    title: 'Giao Tiếp Cơ Bản',
-    titleVietnamese: 'Tiếng Anh Giao Tiếp Nhập Môn',
+    name: 'Giao Tiếp Cơ Bản',
+    nameVietnamese: 'Tiếng Anh Giao Tiếp Nhập Môn',
     description: 'Nắm vững những từ vựng và mẫu câu cơ bản nhất để bắt đầu hành trình chinh phục tiếng Anh.',
-    isPremium: false,
+    colorClass: 'text-primary-600',
     emoji: '🌱',
     bgGradient: 'from-primary-500 to-indigo-600',
     lessons: [

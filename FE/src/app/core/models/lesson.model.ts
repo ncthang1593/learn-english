@@ -1,6 +1,6 @@
 // ===== Lesson Models =====
 
-export type LevelId = 'foundation' | 'building' | 'developing' | 'advancing';
+export type LevelId = string;
 export type ExerciseType = 'mcq' | 'fill-blank' | 'matching' | 'ordering';
 export type DifficultyLevel = 'easy' | 'medium' | 'hard';
 
@@ -12,7 +12,8 @@ export interface VocabularyWord {
   example: string;
   exampleVietnamese: string;
   imageUrl?: string;
-  partOfSpeech: 'noun' | 'verb' | 'adjective' | 'adverb' | 'preposition' | 'phrase';
+  audioUrl?: string;
+  partOfSpeech?: 'noun' | 'verb' | 'adjective' | 'adverb' | 'preposition' | 'phrase';
 }
 
 export interface TheorySection {
