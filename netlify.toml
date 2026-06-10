@@ -1,7 +1,8 @@
 [build]
   base = "FE"
-  command = "npm run build"
+  command = "npm install --legacy-peer-deps && npm run build"
   publish = "dist/learn-english"
+
 
 [[redirects]]
   from = "/*"
