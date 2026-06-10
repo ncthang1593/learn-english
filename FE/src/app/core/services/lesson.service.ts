@@ -1,27 +1,13 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Level, Lesson, LevelId } from '../models/lesson.model';
 import { StorageService } from './storage.service';
-import { environment } from '../../../environments/environment';
+import { LEVELS_DATA } from '../../data/levels.data';
 
 @Injectable({ providedIn: 'root' })
 export class LessonService {
   private storage = inject(StorageService);
-  private http = inject(HttpClient);
 
-  readonly levels = signal<Level[]>([]);
-
-  constructor() {
-    this.http.get<Level[]>(`${environment.apiUrl}/content/levels`).subscribe({
-      next: (data) => {
-        // Nếu API trả về static (chưa có data trong DB), nó có thể không phải mảng
-        if (Array.isArray(data)) {
-          this.levels.set(data);
-        }
-      },
-      error: (err) => console.error('Lỗi khi tải bài học:', err)
-    });
-  }
+  readonly levels = signal<Level[]>(LEVELS_DATA);
 
   getLevelById(id: LevelId): Level | undefined {
     return this.levels().find(l => l.id === id);

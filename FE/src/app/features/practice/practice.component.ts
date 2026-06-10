@@ -214,19 +214,11 @@ export class PracticeComponent implements OnInit {
     return total ? Math.round((this.quizCorrectCount() / total) * 100) : 0;
   });
 
-  constructor() {
-    import('@angular/core').then(({ effect }) => {
-      effect(() => {
-        const levels = this.lessonService.levels();
-        if (levels && levels.length > 0) {
-          const words = levels.flatMap(l => l.lessons.flatMap(lesson => lesson.vocabulary));
-          this.allWords.set(words.sort(() => Math.random() - 0.5));
-        }
-      }, { allowSignalWrites: true });
-    });
-  }
+  constructor() {}
 
   ngOnInit() {
+    const words = this.lessonService.levels().flatMap(l => l.lessons.flatMap(lesson => lesson.vocabulary));
+    this.allWords.set(words.sort(() => Math.random() - 0.5));
   }
 
   // --- Flashcard ---
