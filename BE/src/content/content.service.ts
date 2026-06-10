@@ -18,13 +18,24 @@ export class ContentService {
     });
 
     if (dbLessons.length > 0) {
-      // Group by level
-      const levels: Record<string, any[]> = {};
+      // Group by level and return Level[] format expected by FE
+      const levelMap = new Map<string, any>();
+      
       for (const lesson of dbLessons) {
-        if (!levels[lesson.levelId]) levels[lesson.levelId] = [];
-        levels[lesson.levelId].push(lesson);
+        if (!levelMap.has(lesson.levelId)) {
+          levelMap.set(lesson.levelId, {
+            id: lesson.levelId,
+            order: 1, // Giả lập order của level
+            title: lesson.levelId === 'basic-1' ? 'Tiếng Anh Giao Tiếp Cơ Bản' : lesson.levelId,
+            description: 'Lấy từ Database tự động',
+            isPremium: false,
+            lessons: []
+          });
+        }
+        levelMap.get(lesson.levelId).lessons.push(lesson);
       }
-      return levels;
+      
+      return Array.from(levelMap.values());
     }
 
     // Fallback: static data (served directly from FE data files via import)

@@ -10,6 +10,7 @@ import { GrammarModule } from './grammar/grammar.module';
 import { FlashcardsModule } from './flashcards/flashcards.module';
 import { ContentModule } from './content/content.module';
 import { AdminModule } from './admin/admin.module';
+import { DictionaryModule } from './dictionary/dictionary.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AdminModule } from './admin/admin.module';
     FlashcardsModule,
     ContentModule,
     AdminModule,
+    DictionaryModule,
   ],
 })
 export class AppModule {}

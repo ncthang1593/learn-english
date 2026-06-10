@@ -7,7 +7,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "npx --yes prisma generate && nest build",
+    "seed:dictionary": "ts-node scripts/seed-dictionary.ts",
     "postinstall": "",
+
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

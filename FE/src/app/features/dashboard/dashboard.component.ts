@@ -193,13 +193,22 @@ export class DashboardComponent implements OnInit {
     if (word) this.tts.speak(word.english);
   }
 
-  ngOnInit() {
-    // Initialize level total counts
-    this.lessonService.levels().forEach(level => {
-      const stats = this.lessonService.getLevelStats(level.id);
-      if (stats) {
-        this.storage.updateLevelProgress(level.id, stats.completed, stats.total);
-      }
+  constructor() {
+    import('@angular/core').then(({ effect }) => {
+      effect(() => {
+        const levels = this.lessonService.levels();
+        if (levels && levels.length > 0) {
+          levels.forEach(level => {
+            const stats = this.lessonService.getLevelStats(level.id);
+            if (stats) {
+              this.storage.updateLevelProgress(level.id, stats.completed, stats.total);
+            }
+          });
+        }
+      });
     });
+  }
+
+  ngOnInit() {
   }
 }
