@@ -13,6 +13,7 @@ export const LEVELS_DATA: Level[] = [
     lessons: [
       {
         id: 'lesson-1',
+        levelId: 'basic-1',
         order: 1,
         title: 'Greetings & Essentials',
         titleVietnamese: 'Chào Hỏi & Cơ Bản',
@@ -119,6 +120,7 @@ export const LEVELS_DATA: Level[] = [
       },
       {
         id: 'lesson-2',
+        levelId: 'basic-1',
         order: 2,
         title: 'Animals & Nature',
         titleVietnamese: 'Động Vật & Thiên Nhiên',
@@ -225,6 +227,7 @@ export const LEVELS_DATA: Level[] = [
       },
       {
         id: 'lesson-3',
+        levelId: 'basic-1',
         order: 3,
         title: 'Food & Drinks',
         titleVietnamese: 'Đồ Ăn & Đồ Uống',
