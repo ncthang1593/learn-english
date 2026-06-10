@@ -1,7 +1,8 @@
 [build]
   base = "FE"
   command = "npm run build"
-  publish = "dist/learn-english"
+  publish = "dist/learn-english/browser"
+
 
 [build.environment]
   NPM_FLAGS = "--legacy-peer-deps"
