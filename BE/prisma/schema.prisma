@@ -1,0 +1,214 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============ AUTH & USER ============
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  username         String   @unique
+  passwordHash     String?
+  displayName      String
+  avatarUrl        String?
+  dailyGoalMinutes Int      @default(10)
+  role             Role     @default(USER)
+
+  // OAuth
+  googleId         String?  @unique
+  facebookId       String?  @unique
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  progress         UserProgress?
+  lessonProgress   LessonProgress[]
+  dailyActivity    DailyActivity[]
+  achievements     AchievementUnlock[]
+  grammarRead      GrammarRead[]
+  flashcardReviews FlashcardReview[]
+  refreshTokens    RefreshToken[]
+
+  @@map("users")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  tokenHash String
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+// ============ PROGRESS ============
+
+model UserProgress {
+  id                    String    @id @default(uuid())
+  totalXP               Int       @default(0)
+  level                 Int       @default(1)
+  streak                Int       @default(0)
+  longestStreak         Int       @default(0)
+  lastStudiedDate       DateTime?
+  totalLessonsCompleted Int       @default(0)
+  totalWordsLearned     Int       @default(0)
+  totalMinutesStudied   Int       @default(0)
+  updatedAt             DateTime  @updatedAt
+
+  userId                String    @unique
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_progress")
+}
+
+model LessonProgress {
+  id          String    @id @default(uuid())
+  lessonId    String
+  levelId     String
+  completed   Boolean   @default(false)
+  stars       Int       @default(0)
+  score       Int       @default(0)
+  bestScore   Int       @default(0)
+  attempts    Int       @default(0)
+  completedAt DateTime?
+
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@map("lesson_progress")
+}
+
+model DailyActivity {
+  id               String   @id @default(uuid())
+  date             DateTime @db.Date
+  minutesStudied   Int      @default(0)
+  xpEarned         Int      @default(0)
+  lessonsCompleted Int      @default(0)
+  wordsLearned     Int      @default(0)
+
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId])
+  @@map("daily_activity")
+}
+
+model AchievementUnlock {
+  id            String   @id @default(uuid())
+  achievementId String
+  unlockedAt    DateTime @default(now())
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@map("achievement_unlocks")
+}
+
+model GrammarRead {
+  id      String   @id @default(uuid())
+  topicId String
+  readAt  DateTime @default(now())
+
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+  @@index([userId])
+  @@map("grammar_read")
+}
+
+model FlashcardReview {
+  id             String   @id @default(uuid())
+  wordId         String
+  lessonId       String
+  nextReviewDate DateTime
+  intervalDays   Int      @default(1)
+  easeFactor     Float    @default(2.5)
+  repetitions    Int      @default(0)
+  lastGrade      Int      @default(0)
+
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, wordId])
+  @@index([userId])
+  @@index([userId, nextReviewDate])
+  @@map("flashcard_reviews")
+}
+
+// ============ CONTENT MANAGEMENT (Admin) ============
+
+model LessonContent {
+  id               String   @id @default(uuid())
+  lessonId         String   @unique
+  levelId          String
+  order            Int
+  title            String
+  titleVietnamese  String
+  description      String
+  emoji            String   @default("📚")
+  estimatedMinutes Int      @default(10)
+  xpReward         Int      @default(50)
+  difficulty       String   @default("medium")
+  theory           Json     @default("[]")
+  vocabulary       Json     @default("[]")
+  exercises        Json     @default("[]")
+  tags             String[]
+  published        Boolean  @default(true)
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([levelId])
+  @@map("lesson_content")
+}
+
+model GrammarContent {
+  id              String   @id @default(uuid())
+  topicId         String   @unique
+  categoryId      String
+  title           String
+  titleVietnamese String
+  description     String
+  difficulty      String   @default("medium")
+  emoji           String   @default("📐")
+  order           Int      @default(0)
+  whenToUse       Json     @default("[]")
+  formulas        Json     @default("[]")
+  signalWords     String[]
+  examples        Json     @default("[]")
+  commonMistakes  Json     @default("[]")
+  comparison      Json?
+  tips            String[]
+  exercises       Json     @default("[]")
+  published       Boolean  @default(true)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([categoryId])
+  @@map("grammar_content")
+}
