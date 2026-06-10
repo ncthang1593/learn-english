@@ -367,6 +367,7 @@ export class LessonComponent implements OnInit, OnDestroy {
   prevVocab() { this.vocabIndex.update(v => Math.max(v - 1, 0)); }
 
   getWordEmoji(word: VocabularyWord): string {
+    if (!word.partOfSpeech) return '📖';
     const map: Record<string, string> = { noun: '📦', verb: '🏃', adjective: '🎨', adverb: '⚡', preposition: '📍', phrase: '💬' };
     return map[word.partOfSpeech] ?? '📖';
   }
