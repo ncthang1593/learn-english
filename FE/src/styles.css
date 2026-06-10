@@ -7,11 +7,11 @@
 
 /* ===== CSS Custom Properties ===== */
 :root {
-  --primary: #7c3aed;
-  --primary-light: #8b5cf6;
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
   --secondary: #10b981;
   --accent: #f59e0b;
-  --bg-light: #f5f3ff;
+  --bg-light: #eff6ff;
   --bg-dark: #0f172a;
   --surface-light: #ffffff;
   --surface-dark: #1e293b;
@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== XP Bar ===== */
 .xp-bar {
-  background: linear-gradient(90deg, #7c3aed, #8b5cf6, #a78bfa);
+  background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa);
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
 }
@@ -386,14 +386,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== Utility Classes ===== */
 .text-gradient {
-  background: linear-gradient(135deg, #7c3aed, #8b5cf6, #a78bfa);
+  background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
 }
 
 .bg-gradient-success {
