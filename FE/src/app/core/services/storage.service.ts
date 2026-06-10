@@ -153,6 +153,9 @@ export class StorageService {
   // ===== Level Progress =====
   updateLevelProgress(levelId: LevelId, completedLessons: number, totalLessons: number): void {
     const p = { ...this._progress() };
+    if (!p.levelProgress[levelId]) {
+      p.levelProgress[levelId] = { levelId, unlocked: true, completed: false, completedLessons: 0, totalLessons: 0, percentComplete: 0 };
+    }
     const levelProg = p.levelProgress[levelId];
     const wasCompleted = levelProg.completed;
 

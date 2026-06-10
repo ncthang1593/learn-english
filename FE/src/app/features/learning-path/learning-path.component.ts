@@ -116,7 +116,7 @@ export class LearningPathComponent {
   levelsWithProgress = computed(() => {
     return this.lessonService.levels().map(level => {
       const stats = this.lessonService.getLevelStats(level.id)!;
-      const progress = this.storage.progress().levelProgress[level.id];
+      const progress = this.storage.progress().levelProgress[level.id] || { unlocked: true, completed: false };
       return {
         ...level,
         unlocked: progress.unlocked,

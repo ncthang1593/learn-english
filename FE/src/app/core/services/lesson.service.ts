@@ -22,6 +22,8 @@ export class LessonService {
   }
 
   isLevelUnlocked(levelId: LevelId): boolean {
+    const level = this.getLevelById(levelId);
+    if (level && level.order === 1) return true;
     return this.storage.progress().levelProgress[levelId]?.unlocked ?? false;
   }
 

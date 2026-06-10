@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
   levels = computed(() => {
     return this.lessonService.levels().map(level => {
       const stats = this.lessonService.getLevelStats(level.id);
-      const progress = this.storage.progress().levelProgress[level.id];
+      const progress = this.storage.progress().levelProgress[level.id] || { unlocked: true };
       return {
         levelId: level.id,
         name: level.nameVietnamese,
