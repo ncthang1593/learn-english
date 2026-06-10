@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_22"]
 cmds = ["npm install --legacy-peer-deps --ignore-scripts"]
 
 [phases.build]
-cmds = ["npx prisma generate", "npm run build"]
+cmds = ["npx prisma generate", "npx nest build"]
 
 [start]
 cmd = "node dist/main.js"
