@@ -36,10 +36,10 @@ import { ToastModule } from 'primeng/toast';
     .app-layout {
       display: flex;
       min-height: 100dvh;
-      background: #f8fafc;
+      background: var(--bg-light);
       transition: background 0.3s ease;
     }
-    .app-layout.dark { background: #0f172a; }
+    .app-layout.dark { background: var(--bg-dark); }
     .main-content { flex: 1; min-width: 0; }
   `]
 })

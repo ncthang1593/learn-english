@@ -9,7 +9,7 @@ export const LEVELS_DATA: Level[] = [
   "description": "Nắm vững 100 từ vựng và mẫu câu cơ bản nhất được tổng hợp từ 10 chủ đề quan trọng.",
   "colorClass": "text-primary-600",
   "emoji": "🌱",
-  "bgGradient": "from-primary-500 to-indigo-600",
+  "bgGradient": "from-primary-500 to-primary-600",
   "lessons": [
     {
       "id": "lesson-1",
